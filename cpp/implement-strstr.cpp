@@ -15,11 +15,13 @@ using namespace std;
 class Solution {
 public:
     int strStr(string haystack, string needle) {
-        auto lps = preproceses(needle);
         auto N = haystack.size();
         auto M = needle.size();
         if (N < M)
             return -1;
+        if (M < 1)
+            return 0;
+        auto lps = preproceses(needle);
         int i = 0; // for haystack
         int j = 0; // for needle
         while (i < N) {
@@ -51,7 +53,7 @@ private:
         int len = 0;
         while (i < M) {
             if (needle[i] == needle[len]) {
-                lps[i++] = len++;
+                lps[i++] = ++len;
             } else if (len > 0) {
                 len = lps[len-1];
             } else {
@@ -66,15 +68,20 @@ private:
 class Solution2 {
 public:
     vector<int> strStr(string haystack, string needle) {
-        auto lps = preproceses(needle);
         auto N = haystack.size();
         auto M = needle.size();
         vector<int> found;
+        if (M < 1)
+            return found;
         if (N < M)
             return found;
+        auto lps = preproceses(needle);
         int i = 0; // for haystack
         int j = 0; // for needle
         while (i < N) {
+
+            // cout << "i = " << i << ", j = " << j << endl;
+
             if (haystack[i] != needle[j]) {
                 if (j > 0)
                     j = lps[j-1];
@@ -103,20 +110,28 @@ private:
         int len = 0;
         while (i < M) {
             if (needle[i] == needle[len]) {
-                lps[i++] = len++;
+                lps[i++] = ++len;
             } else if (len > 0) {
                 len = lps[len-1];
             } else {
                 lps[i++] = 0;
             }
         }
+/*
+        for (auto x : lps)
+            cout << x << " ";
+        cout << endl;
+*/
         return lps;
     }
 };
 
+
 int main () {
-    string haystack{"this is the test text"};
-    string needle{"th"};
+    string haystack{"mississippi"};
+    string needle{"issi"};
+    // string haystack{"aaaaaaaa"};
+    // string needle{"aaa"};
 
     auto output = Solution2{}.strStr(haystack, needle);
     cout << needle << endl;
@@ -135,3 +150,25 @@ int main () {
 
     return 0;
 }
+
+/*
+int main () {
+    string haystack{"mississippi"};
+    string needle{"issip"};
+
+    auto output = Solution{}.strStr(haystack, needle);
+    cout << needle << endl;
+    cout << haystack << endl;
+    int i = 0;
+
+    while (i++ < output)
+        cout << ' ';
+    cout << '^';
+    cout << endl;
+
+    cout << output << endl;
+
+
+    return 0;
+}
+*/

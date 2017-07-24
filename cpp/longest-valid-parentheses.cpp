@@ -46,3 +46,36 @@ public:
 };
 
 /* using dynamic programing */
+class Solution {
+public:
+    int longestValidParentheses(string s) {
+      if (s.size() <= 1)
+        return 0;
+
+      auto max_len = 0;
+      vector<int> mv(s.size(), 0);
+
+      auto last_c = s[0];
+      for (int i=1; i < s.size(); ++i) {
+        auto c = s[i];
+        if (c == ')') {
+          if (last_c == '(') {
+            if ()
+
+          } else if (last_c == ')') {
+
+          }
+
+          last_c = c;
+        } else if (c == ')') {
+
+          last_c = c;
+        } else {
+          mv[i] = mv[i-1];
+        }
+
+      }
+
+      return max_len;
+    }
+};

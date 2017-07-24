@@ -10,6 +10,7 @@ Another example is ")()())", where the longest valid parentheses substring is "(
 #include <algorithm>
 #include <iostream>
 #include <string>
+#include <stack>
 
 using namespace std;
 
@@ -46,7 +47,7 @@ public:
 };
 
 /* using dynamic programing */
-class Solution {
+class Solution2 {
 public:
     int longestValidParentheses(string s) {
       if (s.size() <= 1)
@@ -60,22 +61,34 @@ public:
         auto c = s[i];
         if (c == ')') {
           if (last_c == '(') {
-            if ()
+              mv[i] = (i>=2 ? mv[i-2] : 0) + 2;
+              max_len = max(max_len, mv[i]);
 
           } else if (last_c == ')') {
+              auto j = i - mv[i-1] - 1;
+              if (j >= 0 && s[j] == '(') {
+                  mv[i] = j>=1 ? (mv[i-1] + mv[j-1] + 2) : mv[i-1] + 2;
+                  max_len = max(max_len, mv[i]);
+              }
 
           }
 
-          last_c = c;
-        } else if (c == ')') {
-
-          last_c = c;
-        } else {
-          mv[i] = mv[i-1];
         }
 
+        last_c = c;
       }
 
       return max_len;
     }
 };
+
+int main(int argc, char const *argv[]) {
+    vector<string> sv{"", "(", ")", "()", "(())", "((())", "())()()", "()(())"};
+
+    for (auto s : sv) {
+        cout << s << " : ";
+        cout << Solution2{}.longestValidParentheses(s) << endl;
+    }
+
+    return 0;
+}

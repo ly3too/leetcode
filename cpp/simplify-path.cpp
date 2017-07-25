@@ -68,7 +68,7 @@ int main () {
     SV.push_back(string("/"));
     SV.push_back(string("//"));
     SV.push_back(string("/../"));
-    SV.push_back(string("/a/./b//../c/"));
+    SV.push_back(string("/a/./b/../../c/"));
     SV.push_back(string("/home/"));
 
     for (auto input : SV) {

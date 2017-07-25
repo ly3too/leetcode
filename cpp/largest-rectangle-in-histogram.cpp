@@ -19,7 +19,7 @@ return 10.
 
 using namespace std;
 
-/* using stack O(n), O(n) */
+/* using Ascending stack O(n), O(n) */
 class Solution {
 public:
     int largestRectangleArea(vector<int>& heights) {

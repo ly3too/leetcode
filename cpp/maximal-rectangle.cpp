@@ -29,7 +29,7 @@ public:
 
         //vector<vector<int>> mat2(M, vector<int>(n,0));
         for (auto &x : matrix[0]) {
-            x -= '0';
+            x -= '0'
         }
 
         int max_size = largestRectangleArea(matrix[0]);

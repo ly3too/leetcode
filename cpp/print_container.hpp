@@ -1,5 +1,6 @@
 #include <iostream>
 #include <utility>
+#include <string>
 
 template<typename T, typename... Args, template<typename, typename...> class Tclass>
 std::ostream& operator<<(std::ostream &out, const Tclass<T, Args...> &c) {

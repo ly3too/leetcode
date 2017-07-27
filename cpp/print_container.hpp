@@ -45,12 +45,6 @@ std::ostream& operator<<(std::ostream &out, const Tclass<T, Args> &c) {
 }
 */
 
-template<typename T, typename U>
-std::ostream& operator<<(std::ostream &out, const std::pair<T, U> &p) {
-    out << '[' << p.first << ", " << p.second << "]";
-    return out;
-}
-
 /*
 template<typename T, typename U>
 std::ostream& operator<<(std::ostream &out, const std::map<T, U> &c) {
@@ -66,6 +60,12 @@ std::ostream& operator<<(std::ostream &out, const std::map<T, U> &c) {
     return out;
 }
 */
+
+template<typename T, typename U>
+std::ostream& operator<<(std::ostream &out, const std::pair<T, U> &p) {
+    out << '[' << p.first << ", " << p.second << "]";
+    return out;
+}
 
 template <class charT, class traits, class T, class... Args, template<typename, typename...> class Tclass>
   std::basic_ostream<charT,traits>& operator<< (std::basic_ostream<charT,traits>& out, const Tclass<T, Args...>& c) {

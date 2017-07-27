@@ -27,7 +27,48 @@ using namespace std;
 
 class Solution {
 public:
-    int evalRPN(vector<string>& tokens) {
+    int calculate(string& s) {
+        vector<string> tokens;
+
+        // tokenize
+        string tmp;
+        for (auto &c : s) {
+            if (c == ' ') {
+                continue;
+            }
+
+            if (tmp.empty()) {
+                tmp += c;
+
+                /* continue a number */
+            } else if (isdigit(c) && isdigit(tmp[0])) {
+                tmp += c;
+
+                /* different type */
+            } else {
+                tokens.emplace_back(move(tmp));
+                tmp += c;
+            }
+        }
+        tokens.emplace_back(move(tmp));
+
+        // cout << tokens << endl;
+
+        return evalRPN(getRPN(tokens));
+    }
+
+private:
+    const char L = 'L';
+    const char R = 'R';
+    const unordered_map<char, pair<int,char>> operators{{'+',{1,L}},
+                            {'-', {1,L}},
+                            {'*', {2,L}},
+                            {'/', {2,L}},
+                            {'%', {3,L}},
+                            {'^', {3,R}},
+                            {'(', {0,L}},};
+
+    int evalRPN(vector<string>&& tokens) {
         stack<int> values;
 
         for (auto &token : tokens) {
@@ -74,24 +115,7 @@ public:
         return values.empty() ? 0 : values.top();
     }
 
-    vector<string> getRPN(const string &s) {
-        vector<string> tokens;
-        stringstream ss(s);
-        string tmp;
-        while(getline(ss, tmp, ' ')) {
-            tokens.emplace_back(move(tmp));
-        }
-
-        const char L = 'L';
-        const char R = 'R';
-        const unordered_map<char, pair<int,char>> operators{{'+',{1,L}},
-                                {'-', {1,L}},
-                                {'*', {2,L}},
-                                {'/', {2,L}},
-                                {'%', {3,L}},
-                                {'^', {3,R}},
-                                {'(', {0,L}},};
-
+    vector<string> getRPN(vector<string>& tokens) {
         vector<string> output;
         stack<string> ops;
         for (auto &token : tokens) {
@@ -138,30 +162,12 @@ public:
 
 
 int main() {
-    vector<vector<string>> vvs;
-    vector<string> in_str = {"", "1 2 +", "2 -1 + 3 *", "4 13 5 / +"};
-    for (auto& s : in_str) {
-        stringstream ss{move(s)};
-        string tmp;
-        vector<string> vs_tmp;
-        while(getline(ss, tmp, ' ')) {
-            vs_tmp.emplace_back(move(tmp));
-        }
-        vvs.emplace_back(move(vs_tmp));
-    }
 
-    cout << initializer_list<int>{0,1,2} << endl;
-    cout << string{"hello"} << endl;
-    cout << pair<int,int>{0,1} << endl;
-    cout << map<int,int>{{2,2},{3,4}} << endl;
-    cout << vvs << endl;
-    for (auto& vs : vvs) {
-        cout << vs << " -> " << Solution{}.evalRPN(vs) << endl;
-    }
-
-    in_str = {"", "1 + 2", "1 + 2 - 2 ^ 3", "4 + 13 % 5", "5 + ( 6 + ( 5 * 8 ) ^ 2 ) * 2"};
+    vector<string> in_str = {"", "1 + 2", " 2-1 + 2 ", "(1+(4+5+2)-3)+(6+8)", "5 + ( 6 + ( 5 * 8 ) ^ 2 ) * 2"};
     for (auto &s : in_str) {
-        auto&& sv = Solution{}.getRPN(s);
-        cout << s << " -> " << sv << " = " << Solution{}.evalRPN(sv) << endl;
+        auto res = Solution{}.calculate(s);
+        cout << s << " -> " << res << endl;
     }
+
+    return 0;
 }

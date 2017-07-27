@@ -52,7 +52,7 @@ public:
         }
         tokens.emplace_back(move(tmp));
 
-        // cout << tokens << endl;
+        cout << tokens << endl;
 
         return evalRPN(getRPN(tokens));
     }
@@ -145,8 +145,13 @@ private:
 
                 /*lower priority*/
             } else {
-                output.emplace_back(move(ops.top()));
-                ops.pop();
+                do {
+                    output.emplace_back(move(ops.top()));
+                    ops.pop();
+                } while (!(ops.empty() ||
+                        operators.at(token[0]).second==L && operators.at(token[0]).first > operators.at(ops.top()[0]).first ||
+                        operators.at(token[0]).second==R && operators.at(token[0]).first >= operators.at(ops.top()[0]).first));
+
                 ops.push(token);
             }
         }
@@ -156,6 +161,7 @@ private:
             ops.pop();
         }
 
+        cout << output << endl;
         return output;
     }
 };
@@ -163,7 +169,7 @@ private:
 
 int main() {
 
-    vector<string> in_str = {"", "1 + 2", " 2-1 + 2 ", "(1+(4+5+2)-3)+(6+8)", "5 + ( 6 + ( 5 * 8 ) ^ 2 ) * 2"};
+    vector<string> in_str = {"", "1 + 2", " 2-1 + 2 ", "(1+(4+5+2)-3)+(6+8)", "5 + ( 6 + ( 5 * 8 ) ^ 2 ) * 2", "1*2-3/4+5*6-7*8+9/10"};
     for (auto &s : in_str) {
         auto res = Solution{}.calculate(s);
         cout << s << " -> " << res << endl;

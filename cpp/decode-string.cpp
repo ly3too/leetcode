@@ -30,12 +30,13 @@ s = "2[abc]3[cd]ef", return "abcabccdcdcdef".
 
 using namespace std;
 
+
+/* O(n), O(h) */
 class Solution {
 public:
     string decodeString(string s) {
         stack<int> opstk;
         stack<string> sstk;
-        string output;
 
         string tmp;
         string dig;

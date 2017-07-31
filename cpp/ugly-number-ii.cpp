@@ -18,6 +18,7 @@ Note that 1 is typically treated as an ugly number, and n does not exceed 1690.
 #include <map>
 #include <cmath>
 #include <unordered_map>
+#include <queue>
 #include <typeinfo>
 #include "print_container.hpp"
 
@@ -51,3 +52,48 @@ public:
         return ugs[n-1];
     }
 };
+
+/* solution2: use min heap to get the next ugly value, O(n), O(1) */
+class Solution2 {
+public:
+    int nthUglyNumber(int n) {
+        ugs.emplace(1);
+
+        for (int i=1; i<n; ++i) {
+            long long val = ugs.top();
+            ugs.pop();
+            if (val%2 == 0) { // multiple of 2
+                ugs.emplace(2*val);
+
+            } else if (val%3 == 0) { // multiple of 3 but not 2;
+                ugs.emplace(2*val);
+                ugs.emplace(3*val);
+
+            } else { // multiple of 5 by not 2,3, or just 1;
+                ugs.emplace(2*val);
+                ugs.emplace(3*val);
+                ugs.emplace(5*val);
+            }
+        }
+
+        return ugs.top();
+    }
+
+    void print_queue() {
+        while (!ugs.empty()) {
+            cout << ugs.top() << " ";
+            ugs.pop();
+        }
+    }
+
+private:
+    priority_queue<long long, vector<long long>, greater<long long>> ugs;
+};
+
+int main() {
+    int x = 1481;
+    Solution2 s2;
+    cout << x << " : " << s2.nthUglyNumber(x) << endl;
+    s2.print_queue();
+    cout << endl;
+}

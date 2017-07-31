@@ -5,7 +5,7 @@ template<typename Value, class Compare = std::less<Value>>
 class RB_tree {
 public:
     RB_tree();
-    RB_tree(RB_tree& tree);
+    RB_tree(const RB_tree& tree);
     RB_tree(RB_tree&& tree);
     ~RB_tree();
     insert(const Value& val);
@@ -47,6 +47,26 @@ private:
 
 using namespace std;
 
+template<typename V, class C = std::less<Value>>
+RB_tree<V, C>& RB_tree<V, C>::operator=( RB_tree<V, C>&& rhs ) {
+    swap(*this, rhs);
+}
+
+template<typename Value, class Compare = std::less<Value>>
+RB_tree<Value, Compare>& RB_tree<Value, Compare>::operator=(const RB_tree& rhs ) {
+    swap(*this, RB_tree{rhs});
+}
+
+template<typename Value, class Compare = std::less<Value>>
+RB_tree<Value, Compare>::RB_tree(RB_tree&& tree) {
+    swap(*this, tree);
+}
+
+template<typename Value, class Compare = std::less<Value>>
+RB_tree<Value, Compare>::RB_tree(const RB_tree& tree) {
+    swap(*this, RB_tree{tree});
+}
+
 template<typename Value, class Compare = std::less<Value>>
 RB_tree<Value, Compare>::RB_tree() : root{nullptr} {
 
@@ -80,11 +100,6 @@ Node* RB_tree<Value, Compare>::B_tree_insert(Value&& val) {
     }
 
     return last;
-}
-
-template<typename Value, class Compare = std::less<Value>>
-RB_tree<Value, Compare>::RB_tree(RB_tree&& tree) {
-    swap(*this, tree);
 }
 
 template<typename Value, class Compare = std::less<Value>>

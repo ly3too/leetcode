@@ -54,3 +54,38 @@ public:
         return ugs[n-1];
     }
 };
+
+/* heap solution O(n*logk) ~ O(n*k), O(n + k)*/
+class Solution {
+public:
+    int nthSuperUglyNumber(int n, vector<int>& primes) {
+        vector<int> ugs(n);
+        vector<int> idx(primes.size(), 0);
+        priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int, int>>> heap;
+
+        ugs[0] = 1;
+
+        for (int k=0; k<primes.size(); ++k) {
+            heap.emplace(primes[k], k);
+        }
+
+        for (int i=1; i<n; ++i) {
+            int val, k;
+            tie(val, k) = heap.top();
+            heap.pop();
+
+            ugs[i] = val;
+            ++idx[k];
+            heap.emplace(primes[k]*ugs[idx[k]], k);
+
+            while (val == heap.top().first) {
+                k = heap.top().second;
+                heap.pop();
+                ++idx[k];
+                heap.emplace(primes[k]*ugs[idx[k]], k);
+            }
+        }
+
+        return ugs[n-1];
+    }
+};

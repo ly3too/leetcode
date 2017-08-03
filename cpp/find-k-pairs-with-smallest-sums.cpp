@@ -34,7 +34,7 @@ using namespace std;
 
 /* if(nums[i], nums[j]) is the min one, then next min be (nums[i+1], nums[j])
 or (nums[i], nums[j+1]) or previous elements in the que */
-/* using min queue, O(k*log(min(m,n,k))), O(log(min(m,n,k)))*/
+/* using min queue, O(k*log(min(m,n,k))), O(min(m,n,k))*/
 class Solution {
 public:
     vector<pair<int, int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2, int k) {

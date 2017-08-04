@@ -75,7 +75,9 @@ public:
             auto i = get<1>(que.top());
             auto j = get<2>(que.top());
             que.pop();
-             cout << i << ", " << j << endl;
+
+            // cout << i << ", " << j << " : " << min_h << endl;
+
             // add cell from 4 side of the min height cell;
             if (i+1 < M-1) {
                 sum += add_cell(heightMap, que, visited, min_h, i+1, j);
@@ -99,8 +101,9 @@ private:
     priority_queue<T, vector<T>, greater<T>>& que,
     vector<vector<bool>>& visited, int& min_h, int i, int j) {
         if (! visited[i][j]) {
-            que.push(make_tuple(heightMap[i][j], i, j));
+            que.push(make_tuple(max(min_h, heightMap[i][j]), i, j));
             visited[i][j] = true;
+            // cout << i << ", " << j << ", " << min_h << " : " << max(0, min_h - heightMap[i][j]) << endl;
             return max(0, min_h - heightMap[i][j]);
         } else {
             return 0;

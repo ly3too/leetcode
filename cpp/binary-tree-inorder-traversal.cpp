@@ -27,6 +27,9 @@ Given binary tree [1,null,2,3],
      TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  };
 
+/* stack solution, push all left node of cur(if any) to stack,
+stack top is the first val, set cur to top node's right (if any), pop the top node and re-iterate */
+/* O(n), O(h) */
 class Solution {
 public:
     vector<int> inorderTraversal(TreeNode* root) {
@@ -52,6 +55,40 @@ public:
             } else {
                 it.pop();
             }
+        }
+        return out;
+    }
+};
+
+/* temprorally set the right most node of every subtree to it's previous level's root  */
+/* O(n), O(1) */
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> out;
+
+        auto cur = root;
+
+        while (cur) {
+            if (cur->left) {
+                auto node = cur->left;
+                while (node -> right && node -> right != cur) {
+                    node = node -> right;
+                }
+                if (node -> right) {
+                    out.emplace_back(cur -> val);
+                    node -> right = nullptr;
+                    cur = cur -> right;
+                } else {
+                    node -> right = cur;
+                    cur = cur -> left;
+                }
+
+            } else {
+                out.emplace_back(cur -> val);
+                cur = cur -> right;
+            }
+
         }
         return out;
     }

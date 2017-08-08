@@ -62,3 +62,80 @@ private:
         return sum;
     }
 };
+
+/* segment tree; time: O(n), O(logn), O(logn); space: O(n) */
+class NumArray2 {
+public:
+    NumArray2(vector<int>&& nums) : nums_{move(nums)} {
+        N = nums_.size();
+        N_st = 2 * (1 << (static_cast<int> (ceil(log2(N))))) - 1;
+        st_ = vector<int>(N_st);
+        // cout << N_st << " " << log2(N) << endl;
+        if (N)
+            construct_st(0, N-1, 0);
+    }
+
+    void update(int i, int val) {
+        if (i>=0 && i < N) {
+            update_st(0, N-1, i, val-nums_[i], 0);
+            nums_[i] = val;
+        }
+    }
+
+    int sumRange(int i, int j) {
+        if (i<0 || j >= N || j < i) {
+            return 0;
+        }
+        return sum_st(0, N-1, i, j, 0);
+    }
+
+private:
+    vector<int> st_;
+    vector<int> nums_;
+    size_t N;
+    size_t N_st;
+
+    int construct_st(int nb, int ne, int node) {
+        if (nb == ne) {
+            st_[node] = nums_[nb];
+            return st_[node];
+        }
+
+        int mid = (ne+nb)/2;
+        st_[node] = construct_st(nb, mid, 2*node+1) + construct_st(mid+1, ne, 2*node+2);
+        return st_[node];
+    }
+
+    void update_st(int nb, int ne, int i, int diff, int node) {
+        if (i<=ne && i>=nb) {
+            st_[node] += diff;
+            if (nb < ne) {
+                int mid = (ne+nb)/2;
+                update_st(nb, mid, i, diff, 2*node+1);
+                update_st(mid+1, ne, i, diff, 2*node+2);
+            }
+        }
+    }
+
+    int sum_st(int nb, int ne, int i, int j, int node) {
+        /* [nb,ne] in [i, j] */
+        if (i<=nb && j>=ne) {
+            return st_[node];
+        }
+
+        /* no overlape */
+        if (i>ne || j<nb) {
+            return 0;
+        }
+
+        /* some overlape */
+        int mid = (ne+nb)/2;
+        return sum_st(nb, mid, i, j, 2*node+1) + sum_st(mid+1, ne, i, j, 2*node+2);
+    }
+
+};
+
+int main() {
+    NumArray2 nr{vector<int>{1,3,5}};
+    cout << nr.sumRange(0,2) << endl;
+}

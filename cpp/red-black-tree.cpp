@@ -218,3 +218,43 @@ template<typename Value, class Compare = std::less<Value>>
 RB_tree<Value, Compare>::insert(Value& val) {
     insert(Value{val});
 }
+
+/* delete val from RB-tree */
+template<typename Value, class Compare = std::less<Value>>
+void RB_tree<Value, Compare>::del(const Value& val) {
+    auto cur = root;
+    while (cur) {
+        if (comp(val, cur->val)) {
+            cur = cur -> left;
+
+        } else if (comp(cur->val, val)) {
+            cur = cur -> right;
+
+        } else {
+            break;
+        }
+    }
+    if (cur == nullptr)
+        return;
+
+    auto s_ptr = find_left_most(cur->right);
+
+    if (s_ptr == nullptr) {
+
+    /* smallest node is cur's right node */
+    } else if (cur->right == s_prt) {
+
+    /* normal case */
+    } else {
+
+    }
+}
+
+template<typename Value, class Compare = std::less<Value>>
+Node* RB_tree<Value, Compare>::find_left_most(const Node* node) {
+    auto cur = node;
+    while (cur && cur -> left) {
+        cur = cur -> left;
+    }
+    return cur;
+}

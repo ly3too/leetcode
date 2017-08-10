@@ -10,6 +10,7 @@ You should return the indices: [0,9].
 */
 #include "header.hpp"
 
+/* O(n*m*k), O(m*k), n = size(s), m = size(words), k=size(words[0]) */
 class Solution {
 public:
     vector<int> findSubstring(string s, vector<string>& words) {

@@ -4,6 +4,14 @@ Given n points on a 2D plane, find the maximum number of points that lie on the 
 
 #include "header.hpp"
 
+#define DEBUG
+
+#ifdef DEBUG
+#define D(x) {x;}
+#else
+#define D(x) {;}
+#endif
+
 struct Point {
     int x;
     int y;
@@ -108,5 +116,5 @@ public:
 int main() {
     vector<Point> points {Point(0,0), Point(numeric_limits<int>::max()-2, numeric_limits<int>::max()-1), Point(numeric_limits<int>::max()-3, numeric_limits<int>::max()-2)};
     // vector<Point> points {Point(0,0), Point(1, 1), Point(-2, -2)};
-    cout << Solution{}.maxPoints(points) << endl;
+    D( cout << Solution{}.maxPoints(points) << endl );
 }

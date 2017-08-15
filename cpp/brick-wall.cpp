@@ -14,7 +14,7 @@ Input:
 Output: 2
 */
 
-
+/* O(n*m), O(m*n)*/
 class Solution {
 public:
     int leastBricks(vector<vector<int>>& wall) {

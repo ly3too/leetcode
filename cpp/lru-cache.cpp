@@ -5,6 +5,7 @@ get(key) - Get the value (will always be positive) of the key if the key exists 
 put(key, value) - Set or insert the value if the key is not already present. When the cache reached its capacity, it should invalidate the least recently used item before inserting a new item.
 */
 
+/* O(1), O(n) */
 class LRUCache {
 public:
     LRUCache(int capacity) : cap_(capacity) {
@@ -39,7 +40,7 @@ private:
             list_.erase(it);
         }
         list_.push_front({key, val});
-        map_[key] = list_.begin();
+        map_[key] = &list_.begin();
     }
 };
 

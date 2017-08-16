@@ -5,15 +5,15 @@
 
 struct TreeNode {
     int val;
-    unique_ptr<TreeNode> left;
-    unique_ptr<TreeNode> right;
+    shared_ptr<TreeNode> left;
+    shared_ptr<TreeNode> right;
     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
 };
 
 class Solution {
 public:
-    unique_ptr<TreeNode> restore(vector<int> &preorder, vector<int> &inorder) {
-        unique_ptr<TreeNode> root{nullptr};
+    shared_ptr<TreeNode> restore(vector<int> &preorder, vector<int> &inorder) {
+        shared_ptr<TreeNode> root{nullptr};
         const int N = preorder.size();
         if (N != inorder.size()) {
             throw invalid_argument{"vector size mismach"};
@@ -26,7 +26,7 @@ public:
         return root;
     }
 
-    void inorder_to_vector(unique_ptr<TreeNode>& root, vector<int> &vec) {
+    void inorder_to_vector(shared_ptr<TreeNode>& root, vector<int> &vec) {
         if (root == nullptr)
             return;
 
@@ -37,7 +37,7 @@ public:
         inorder_to_vector(root->right, vec);
     }
 
-    void preorder_to_vector(unique_ptr<TreeNode>& root, vector<int> &vec) {
+    void preorder_to_vector(shared_ptr<TreeNode>& root, vector<int> &vec) {
         if (root == nullptr)
             return;
 
@@ -48,8 +48,8 @@ public:
     }
 
 private:
-    void construct_tree(unique_ptr<TreeNode>& root, vector<int> &preorder, vector<int> &inorder, int i, int start, int end) {
-        root = TreeNode{preorder[i]};
+    void construct_tree(shared_ptr<TreeNode>& root, vector<int> &preorder, vector<int> &inorder, int i, int start, int end) {
+        root = make_shared<TreeNode>(preorder[i]);
         if (start == end) {
             return;
         }

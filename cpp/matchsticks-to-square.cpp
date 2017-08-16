@@ -10,7 +10,7 @@ Explanation: You can form a square with length 2, one side of the square came tw
 
 /* try out all set combinations, find if there are 4 subsets without overlape
 and all elements are include, each sum equal to lenth of one side. use bit map to represent different combinations
-O(2^n * n)*/
+O(2^n * n), O()*/
 class Solution {
 public:
     bool makesquare(vector<int>& nums) {

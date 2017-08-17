@@ -14,6 +14,8 @@
 #include <queue>
 #include <typeinfo>
 #include <stdexcept>
+#include <memory>
+#include <tuple>
 #include "print_container.hpp"
 
 using namespace std;

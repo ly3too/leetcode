@@ -5,6 +5,7 @@ If it is overflow, return MAX_INT.
 */
 #include "header.hpp"
 
+/* O(logn) */
 class Solution {
 public:
     int divide(int dividend, int divisor) {

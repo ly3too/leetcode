@@ -22,7 +22,7 @@ public:
             auto right = n % pow_n;
             auto cur = left % 10;
 
-            /*000k000~LLLk999*/
+            /*000kxxx~LLLkxxx*/
             if (k < cur) {
                 cnt += (left/10 + 1) * pow_n;
 

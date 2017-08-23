@@ -24,3 +24,24 @@ public:
         }
     }
 };
+
+/* DP solution */
+class Solution {
+public:
+    int integerBreak(int n) {
+        if (n <= 2)
+            return 1;
+        if (n == 3)
+            return 2;
+        vector<int> res(n+1);
+        res[1] = 1;
+        res[2] = 2;
+        res[3] = 3;
+
+        for (int i=4; i<=n; ++i) {
+            res[i] = max(res[i-2]*2, res[i-3]*3);
+        }
+
+        return res[n];
+    }
+};

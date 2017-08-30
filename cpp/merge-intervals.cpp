@@ -15,7 +15,7 @@ return [1,6],[8,10],[15,18].
  * };
  */
 
-
+/* O(n), O(1) */
 class Solution {
 public:
     vector<Interval> merge(vector<Interval>& intervals) {

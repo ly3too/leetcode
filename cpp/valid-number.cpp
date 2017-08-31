@@ -84,3 +84,68 @@ public:
 
     }
 };
+
+/* simple solution O(n) */
+class Solution {
+public:
+    bool isNumber(string s) {
+        bool valid = false;
+        int index = 0;
+
+        index = skip_space(s, index);
+
+        tie(valid, index) = find_signed(s, index);
+
+        if (index < s.size() && s[index] == '.') {
+            ++index;
+            bool found;
+            tie(found, index) = find_unsigned(s, index);
+
+            // either signed before '.' or unsigned after '.' should be a valid number
+            valid = valid || found;
+        }
+
+        if (valid && index < s.size() && (s[index] == 'e' || s[index] == 'E')) {
+            ++ index;
+            bool found;
+            tie(found, index) = find_signed(s, index);
+            valid = valid && found;
+        }
+
+        index = skip_space(s, index);
+
+        return (index == s.size() && valid);
+    }
+
+private:
+    int skip_space(const string &s, int idx) {
+        while (idx < s.size() && s[idx]==' ') {
+            ++idx;
+        }
+
+        return idx;
+    }
+
+    /* the question testing set sucks */
+    tuple<bool, int> find_signed(const string &s, int idx) {
+        if (idx >= s.size()) {
+            return {false, idx};
+        }
+
+        if (s[idx] == '-' || s[idx] == '+') {
+            ++idx;
+        }
+
+        return find_unsigned(s, idx);
+    }
+
+    tuple<bool, int> find_unsigned(const string &s, int idx) {
+        bool found = false;
+        while (idx < s.size() && (s[idx] >= '0' && s[idx] <= '9')) {
+            ++idx;
+            found = true;
+        }
+
+        return {found, idx};
+    }
+};

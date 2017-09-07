@@ -5,7 +5,7 @@ using namespace std;
 
 /* O(n) */
 bool is_prime(int n) {
-    if (n <= 0)
+    if (n <= 1)
         return false;
     if (n <= 3)
         return true;
@@ -24,9 +24,13 @@ bool is_prime(int n) {
 }
 
 int main() {
+    int cnt = 0;
     for (int i=0; i<10000000; ++i) {
-        if (is_prime(i))
+        if (is_prime(i)) {
             cout << i << " ";
+            ++cnt;
+        }
     }
     cout << endl;
+    cout << "total : " << cnt << " prime number" << endl;
 }

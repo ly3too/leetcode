@@ -43,11 +43,11 @@ void merge_sort(vector<Valtype> &vet, Comp comp = Comp()) {
 
 int main() {
     vector<int> input;
-    for (int i=0; i < 10; ++i) {
-        input.emplace_back(rand()%100);
+    for (int i=0; i < 10000; ++i) {
+        input.emplace_back(rand()%10000);
     }
 
-    cout << input << endl;
+    //cout << input << endl;
 
     merge_sort(input, less<int>());
 

@@ -35,3 +35,30 @@ public:
         return res;
     }
 };
+
+/* quick partition , O(n~n^2), expected O(n); O(n)*/
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        unordered_map<int, int> cnts;
+        for (auto &n : nums) {
+            ++cnts[n];
+        }
+
+        vector<pair<int, int>> vect;
+        for (auto &p : cnts) {
+            vect.emplace_back(p);
+        }
+
+        using pair_type = pair<int, int>;
+        auto cmp = [](pair_type &pl, pair_type &pr) {return pl.second > pr.second;};
+        nth_element(vect.begin(), vect.begin()+k-1, vect.end(), cmp);
+
+        vector<int> res;
+        for (auto it = vect.begin(); it != vect.begin()+k; ++it) {
+            res.emplace_back(it -> first);
+        }
+
+        return res;
+    }
+};

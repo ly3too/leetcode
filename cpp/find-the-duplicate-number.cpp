@@ -28,12 +28,43 @@ public:
             }
 
             if (cnt > mid) {
-                right = mid-1;
+                right = mid;
             } else {
                 left = mid + 1;
             }
+
+            if (left == right && cnt>mid) {
+                return left;
+            }
         }
 
-        return left;
+        return -1;
+    }
+};
+
+/* same like linklist loop meeting point detection */
+/* O(n), O(1) */
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+        auto fast = 0;
+        auto slow = 0;
+        const auto N = nums.size();
+        while (fast < N && nums[fast] < N) {
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+
+            /* found loop */
+            if (fast == slow) {
+                fast = 0;
+                while (fast != slow) {
+                    fast = nums[fast];
+                    slow = nums[slow];
+                }
+                return slow;
+            }
+        }
+
+        return -1;
     }
 };

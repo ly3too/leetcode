@@ -17,6 +17,8 @@ Both the left and right subtrees must also be binary search trees.
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
+
+ /* in order traverse, last always keep the last bigest node, cur node should always be bigger than last */
 class Solution {
 public:
     bool isValidBST(TreeNode* root) {
@@ -35,6 +37,49 @@ public:
             return false;
 
         return true;
+    }
+
+private:
+    TreeNode* last = nullptr;
+};
+
+/* last keep the right most node, cur node shoulde be bigger than it */
+/* O(n), O(1) */
+class Solution {
+public:
+    bool isValidBST(TreeNode* root) {
+        auto cur = root;
+        bool isvalid = true;
+
+        while (cur) {
+            if (last && !(last->val < cur->val))
+                isvalid = false;
+
+            if (cur -> left) {
+                auto node = cur -> left;
+                while (node && node -> right && node -> right != cur) {
+                    node = node -> right;
+                }
+
+                if (node -> right) {
+                    node -> right = nullptr;
+                    last = cur;
+                    cur = cur -> right;
+
+                } else {
+                    node -> right = cur;
+                    cur = cur -> left;
+
+                }
+
+            } else {
+                last = cur;
+                cur = cur -> right;
+
+            }
+        }
+
+        return isvalid;
     }
 
 private:

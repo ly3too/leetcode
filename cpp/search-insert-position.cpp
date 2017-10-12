@@ -11,6 +11,7 @@ Here are few examples.
 
 */
 
+/* Olog(n) */
 class Solution {
 public:
     int searchInsert(vector<int>& nums, int target) {

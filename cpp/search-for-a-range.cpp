@@ -33,17 +33,17 @@ public:
 
         return {-1, -1};
     }
-    
+
   private:
     int lower_bound(vector<int>& nums, int target) {
       auto s = 0;
       auto e = static_cast<int>(nums.size()) - 1;
-      while (s < e) {
+      while (s <= e) {
         auto mid = (s + e) / 2;
         if (nums[mid] < target) {
           s = mid + 1;
         } else {
-          e = mid;
+          e = mid - 1;
         }
       }
 
@@ -53,12 +53,12 @@ public:
     int upper_bound(vector<int>& nums, int target) {
       auto s = 0;
       auto e = static_cast<int>(nums.size()) - 1;
-      while (s < e) {
+      while (s <= e) {
         auto mid = (s + e) / 2;
         if (nums[mid] <= target) {
           s = mid + 1;
         } else {
-          e = mid;
+          e = mid - 1;
         }
       }
 

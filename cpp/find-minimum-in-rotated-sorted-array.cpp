@@ -8,6 +8,7 @@ Find the minimum element.
 You may assume no duplicate exists in the array.
 */
 
+/* O(logn) */
 class Solution {
 public:
     int findMin(vector<int>& nums) {

@@ -5,17 +5,18 @@ is greater than the width and height of the other envelope.
 
 */
 
+/* O(log(n)) , O(1)*/
 class Solution {
 public:
     int maxEnvelopes(vector<pair<int, int>>& envelopes) {
         using pr_t = pair<int, int>;
 
         auto cmp = [] (pr_t &p1, pr_t &p2) {
-            return p1.first == p2.first ? p1.second < p2.second : p1.first < p2.first;};
+            return p1.first == p2.first ? p1.second > p2.second : p1.first < p2.first;};
 
         sort(envelopes.begin(), envelopes.end(), cmp);
 
-        vector<pr_t> res;
+        vector<int> res;
         for (auto &enve : envelopes) {
             auto target = enve.second;
 

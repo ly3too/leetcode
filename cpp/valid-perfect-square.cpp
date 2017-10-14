@@ -9,6 +9,7 @@ Input: 16
 Returns: True
 */
 
+/* O(log(n)) */
 class Solution {
 public:
     bool isPerfectSquare(int num) {
@@ -16,7 +17,7 @@ public:
         auto right = num;
 
         while (left <= right) {
-            auto mid = (left + right) / 2;
+            long long mid = (left + right) / 2;
 
             if (mid * mid == num) {
                 return true;

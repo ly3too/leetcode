@@ -3,6 +3,7 @@ Given the height m and the length n of a m * n Multiplication Table,
 and a positive integer k, you need to return the k-th smallest number in this table.
 */
 
+/* O(m*log(m*n)), O(1) */
 class Solution {
 public:
     int findKthNumber(int m, int n, int k) {
@@ -25,7 +26,7 @@ private:
     int count_smaller(int target, int m, int n) {
         int cnt = 0;
         for (int i=1; i <= m; ++i) {
-            cnt += min(n, target/m);
+            cnt += min(n, target/i);
         }
 
         return cnt;

@@ -20,7 +20,7 @@ For any interval i, you need to store the minimum interval
  * };
  */
 
-
+/* O(nlog(n)), O(n) */
 class Solution {
 public:
     vector<int> findRightInterval(vector<Interval>& intervals) {

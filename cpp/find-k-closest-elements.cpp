@@ -8,6 +8,7 @@ Input: [1,2,3,4,5], k=4, x=3
 Output: [1,2,3,4]
 */
 
+/* O(logn + k), O(1) */
 class Solution {
 public:
     vector<int> findClosestElements(vector<int>& arr, int k, int x) {
@@ -15,7 +16,7 @@ public:
         auto j = i;
 
         while (k-- > 0) {
-            if (j >= arr.size() || (i > 0 && abs(arr[i-1]-x) < abs(arr[j]-x))) {
+            if (j >= arr.size() || (i > 0 && abs(arr[i-1]-x) <= abs(arr[j]-x))) {
                 --i;
             } else {
                 ++j;

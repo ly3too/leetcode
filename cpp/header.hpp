@@ -16,6 +16,7 @@
 #include <stdexcept>
 #include <memory>
 #include <tuple>
+#include <set>
 #include "print_container.hpp"
 
 using namespace std;

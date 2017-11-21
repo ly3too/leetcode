@@ -23,11 +23,11 @@ ostream& operator <<(ostream& os, const Interval &intv) {
     return os;
 }
 
-constexpr static auto cmp = [] (const Interval &i1, const Interval &i2) -> bool {return i1.start == i2.start ? i1.end < i2.end : i1.start < i2.start;};
+constexpr static auto cmp2 = [] (const Interval &i1, const Interval &i2) -> bool {return i1.start == i2.start ? i1.end < i2.end : i1.start < i2.start;};
 class SummaryRanges {
 public:
     /** Initialize your data structure here. */
-    SummaryRanges() {
+    SummaryRanges() : intervals_(cmp) {
 
     }
 
@@ -59,15 +59,16 @@ public:
     }
 
 private:
-    //constexpr static auto cmp2 = [] (const Interval &i1, const Interval &i2) -> bool {return i1.start == i2.start ? i1.end < i2.end : i1.start < i2.start;};
-    struct Cmp {
+    const static function<bool(const Interval &i1, const Interval &i2)> cmp;
+    /*struct Cmp {
         bool operator()(const Interval &i1, const Interval &i2) {
             return i1.start == i2.start ? i1.end < i2.end : i1.start < i2.start;
         }
-    };
-    set<Interval, Cmp> intervals_;
+    };*/
+    set<Interval, decltype(cmp)> intervals_;
 
 };
+const function<bool(const Interval &i1, const Interval &i2)> SummaryRanges::cmp = [] (const Interval &i1, const Interval &i2) -> bool {return i1.start == i2.start ? i1.end < i2.end : i1.start < i2.start;};
 
 int main() {
     auto pso = new SummaryRanges();

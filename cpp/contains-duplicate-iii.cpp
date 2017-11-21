@@ -17,7 +17,7 @@ public:
                 bst.erase(bst.find(nums[i- k -1]));
             }
 
-            // Every search costs time: O(logk).
+            // Every search costs time: O(logk). find if there is a num in bst, abs(num - nums[i]) <= t
             const auto it = bst.lower_bound(static_cast<long long>(nums[i]) - t);
             if (it == bst.cend() || (*it - nums[i]) > t) {
                 // Not found.

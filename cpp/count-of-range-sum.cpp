@@ -13,6 +13,7 @@ The three ranges are : [0, 0], [2, 2], [0, 2] and their respective sums are: -2,
 
 #include "header.hpp"
 
+/* O(nlog(n)) */
 class Solution {
 public:
     int countRangeSum(vector<int>& nums, int lower, int upper) {

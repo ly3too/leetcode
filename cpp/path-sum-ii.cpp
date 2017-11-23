@@ -27,6 +27,7 @@ return
  * };
  */
 
+/* O(n), O(h) */
 class Solution {
 public:
     vector<vector<int>> pathSum(TreeNode* root, int sum) {

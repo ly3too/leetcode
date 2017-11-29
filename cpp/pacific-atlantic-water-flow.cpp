@@ -24,7 +24,7 @@ Return:
 
 [[0, 4], [1, 3], [1, 4], [2, 2], [3, 0], [3, 1], [4, 0]] (positions with parentheses in above matrix).
 */
-
+/* o(m*N) , o(M* N)*/
 class Solution {
 public:
     vector<pair<int, int>> pacificAtlantic(vector<vector<int>>& matrix) {

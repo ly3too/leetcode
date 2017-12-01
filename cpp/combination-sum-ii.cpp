@@ -16,6 +16,7 @@ A solution set is:
 ]
 */
 
+/* O(k*C(n, k)), O(k) */
 class Solution {
 public:
     vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {

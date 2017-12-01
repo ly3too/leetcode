@@ -14,6 +14,7 @@ A solution set is:
 ]
 */
 
+/* O(n^k), O(k) */
 class Solution {
 public:
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {

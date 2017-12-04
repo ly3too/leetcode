@@ -15,7 +15,7 @@ class Solution(object):
             n -= 1;
         n -= 1;
 
-        if n < 0:
+        if n < 1:
             nums.sort();
             return
 

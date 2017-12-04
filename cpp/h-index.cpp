@@ -38,7 +38,7 @@ public:
 
         int h = 0;
         for (int i=N; i>=0; --i) {
-            h += cnt[i];
+            h += cnt[N];
 
             if (i <= h) {
                 return i;

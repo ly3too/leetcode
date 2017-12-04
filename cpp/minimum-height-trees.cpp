@@ -43,7 +43,7 @@ Special thanks to @dietpepsi for adding this problem and creating all test cases
 */
 
 /* start from leafs (have only one neighbor), delete leafs, the last one or two is the root */
-/* O(v+e), O(e) */
+/* O(v+e), O(V) */
 class Solution {
 public:
     vector<int> findMinHeightTrees(int n, vector<pair<int, int>>& edges) {

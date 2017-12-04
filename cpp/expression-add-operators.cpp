@@ -9,7 +9,7 @@ Examples:
 "3456237490", 9191 -> []
 */
 
-/*O(4^n), O(n)*/
+/*O(3^n), O(n)*/
 class Solution {
 public:
     vector<string> addOperators(string num, int target) {

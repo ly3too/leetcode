@@ -17,6 +17,7 @@ word = "ABCB", -> returns false.
 
 */
 
+
 class Solution {
 public:
     bool exist(vector<vector<char>>& board, string word) {
@@ -58,7 +59,7 @@ private:
                 }
             }
         }
-        
+
         mask[i][j] = false;
         return false;
     }

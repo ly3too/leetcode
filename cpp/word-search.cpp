@@ -22,7 +22,7 @@ class Solution {
 public:
     bool exist(vector<vector<char>>& board, string word) {
         if (word.size() <= 0) {
-            return res;
+            return false;
         }
         for (int i = 0; i < board.size(); ++i) {
             for (int j = 0; j < board[0].size(); ++j) {
@@ -46,6 +46,8 @@ private:
 
         if (board[i][j] != word[idx]) {
             return false;
+        } else if (idx+1 == word.size()) {
+            return true;
         }
 
         mask[i][j] = true;

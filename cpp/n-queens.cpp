@@ -53,7 +53,7 @@ private:
     int n;
 
     void solveNQueens_recur(int row) {
-        if row >= n) {
+        if (row >= n) {
             res.emplace_back(tmp_res);
             return;
         }

@@ -19,7 +19,7 @@ class Solution {
 public:
     vector<vector<int>> combine(int n, int k) {
         res.clear();
-        tmp.res = vector<int>(k);
+        tmp_res = vector<int>(k);
         k_ = k;
         n_ = n;
 
@@ -32,8 +32,8 @@ private:
     int k_;
     int n_;
     void combine_recur(int indx, int start) {
-        if (indx >= k) {
-            res.empalce_back(tmp_res);
+        if (indx >= k_) {
+            res.emplace_back(tmp_res);
             return;
         }
         for (int i=start; i <= n_; ++i) {

@@ -7,7 +7,7 @@ Now, instead outputting board configurations, return the total number of distinc
 
 class Solution {
 public:
-    vector<vector<string>> solveNQueens(int n) {
+    int totalNQueens(int n) {
         this -> n = n;
         col = vector<bool> (n, false);
         diag = vector<bool> (2*n, false);
@@ -26,7 +26,7 @@ private:
     int n;
 
     void solveNQueens_recur(int row) {
-        if row >= n) {
+        if (row >= n) {
             ++ res_cnt;
             return;
         }

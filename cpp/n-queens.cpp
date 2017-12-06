@@ -24,6 +24,7 @@ There exist two distinct solutions to the 4-queens puzzle:
 ]
 */
 
+/* O(n!), O(n) */
 class Solution {
 public:
     vector<vector<string>> solveNQueens(int n) {

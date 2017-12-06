@@ -17,7 +17,7 @@ word = "ABCB", -> returns false.
 
 */
 
-
+/* O(m*n*l), O(m*n+l) */
 class Solution {
 public:
     bool exist(vector<vector<char>>& board, string word) {

@@ -26,6 +26,7 @@ The wordList parameter had been changed to a list of strings (instead of a set o
 #include "header.hpp"
 
 /* BFS search and trace back to get the path */
+/* O(n*d), O(n*d) */
 class Solution {
 public:
     vector<vector<string>> findLadders(string beginWord, string endWord, vector<string>& wordList) {
@@ -48,7 +49,7 @@ public:
             while (size--) {
                 auto node = que.front();
                 que.pop();
-                cout << *node << ": " << endl;
+                //cout << *node << ": " << endl;
 
                 /* try new word, if new_word == endWord, dont mark dict[new_word] as true to allow multi-trace */
                 for (int i=0; i<n; ++i) {
@@ -59,7 +60,7 @@ public:
                         if (it != dict.end() && !dict[new_word]) {
                             trace[&(it->first)].insert(node);
 
-                            cout << new_word << endl;
+                            //cout << new_word << endl;
                             if (new_word == endWord) {
                                 found = true;
                                 break;
@@ -74,15 +75,15 @@ public:
                     }
                 }
 
-                cout << endl;
+                //cout << endl;
             }
 
             for (auto it : visited_dicts) {
-                cout << "visited " << it -> first << endl;
+                //cout << "visited " << it -> first << endl;
                 it -> second = true;
             }
 
-            cout << "---------------------------" << endl;
+            //cout << "---------------------------" << endl;
         }
 
         if (found)

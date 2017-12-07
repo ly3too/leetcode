@@ -73,3 +73,104 @@ private:
         return false;
     }
 };
+
+
+class Solution {
+public:
+    vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
+        // populate trie
+        for (auto &word : words) {
+            trie.insert(word);
+        }
+        m = board.size();
+        if (m) {
+            n = board[0].size();
+        } else {
+            n = 0;
+        }
+        visited = vector<vector<bool>>(m, vector<bool>(n, false));
+
+        for (int i=0; i<m; ++i) {
+            for (int j=0; j<n; ++j) {
+                if (trie.leaves.count(board[i][j])) {
+                    findWords_recur(board, i, j, &trie);
+                }
+            }
+        }
+
+
+        return {res.begin(), res.end()};
+    }
+
+
+private:
+    unordered_set<string> res;
+    string cur_wrod;
+    vector<vector<bool>> visited;
+    int m;
+    int n;
+
+    struct trie_node {
+        bool is_string = false;
+        unordered_map<char, trie_node*> leaves;
+
+        bool insert(string &s) {
+            auto p = this;
+
+            for (auto ch : s) {
+                if (p -> leaves.find(ch) == leaves.end()) {
+                    p -> leaves[ch] = new trie_node;
+                }
+                p = p -> leaves[ch];
+            }
+
+            if (p -> is_string) {
+                return false;
+            } else {
+                p -> is_string = true;
+                return true;
+            }
+        }
+
+        ~trie_node() {
+            for (auto &leaf : leaves) {
+                if (leaf.second)
+                    delete leaf.second;
+            }
+        }
+    } trie;
+
+    void findWords_recur(vector<vector<char>>& board, int i, int j, trie_node *node) {
+        if (!node)
+            return;
+
+        //cout << i << " " << j << ": " << board[i][j] << endl;
+        // find if current ch is in dictionary
+        trie_node* next_node = nullptr;
+        if (node -> leaves.count(board[i][j])) {
+            next_node = node -> leaves[board[i][j]];
+            cur_wrod.push_back(board[i][j]);
+        } else {
+            //cout << "not find leaf:" << board[i][j] << endl;
+            return;
+        }
+
+        //cout << "next_node " << next_node << endl;
+        // valid word
+        if (next_node -> is_string) {
+            res.insert(cur_wrod);
+        }
+
+        visited[i][j] = true;
+        const static vector<pair<int, int>> dirs{{0, -1}, {0, 1}, {-1, 0}, {1, 0}};
+        for (auto &dir : dirs) {
+            auto new_i = i + dir.first;
+            auto new_j = j + dir.second;
+            if (new_i>=0 && new_i<m && new_j>=0 && new_j<n && !visited[new_i][new_j]) {
+                findWords_recur(board, new_i, new_j, next_node);
+            }
+        }
+        visited[i][j] = false;
+        cur_wrod.pop_back();
+    }
+};

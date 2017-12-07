@@ -11,7 +11,7 @@ Return
   ["a","a","b"]
 ]
 */
-/* O(n^2 ~ 2^n), O(n^2) */
+/* O(n^2 ~ 2^n), O(n^2)  */
 class Solution {
 public:
     vector<vector<string>> partition(string s) {

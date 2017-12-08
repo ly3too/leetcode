@@ -56,3 +56,38 @@ private:
         return isMatch_recur(is, ip+2);
     }
 };
+
+/* DP solution */
+/* O(m*n) O(n)*/
+class Solution {
+public:
+    bool isMatch(string s, string p) {
+        auto ns = s.size();
+        auto np = p.size();
+
+        /* dp[i][j] == true meas s[i-1] matchs p[j-1] */
+        vector<vector<bool>> dp(ns + 1, vector<bool>(np+1));
+        dp[0][0] = true; // empty matchs empty;
+
+        /* empty s matches p[j-1] iff p[j-1] == '*' && matchs p[j-2] */
+        for (int j=2; j <= np; ++j) {
+            dp[0][j] = dp[0][j-2] && p[j-1] == '*';
+        }
+
+        for (int i=1; i<=ns; ++i) {
+            for (int j=1; j<=np; ++j) {
+                // matches one ch
+                if (p[j-1] != '*') {
+                    dp[i][j] = dp[i-1][j-1] && (s[i-1] == p[j-1] || p[j-1] == '.');
+
+                } else {
+                    if (j >= 2) {
+                        dp[i][j] = dp[i][j-2] || (dp[i-1][j] && (p[j-2] == s[i-1] || p[j-2] == '.'));
+                    }
+                }
+            }
+        }
+
+        return dp[ns][np];
+    }
+};

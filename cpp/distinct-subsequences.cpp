@@ -39,3 +39,26 @@ public:
         return dp[ns];
     }
 };
+
+/* O(m*n), O(n) */
+class Solution {
+public:
+    int numDistinct(string s, string t) {
+        auto ns = s.size();
+        auto nt = t.size();
+        if (nt > ns)
+            return 0;
+
+        vector<int> dp(nt+1, 0);
+        dp[0] = 1;
+        for (int j=1; j <= ns; ++j) {
+            for (int i=nt; i >=1; --i) {
+                if (s[j-1] == t[i-1]) {
+                    dp[i] += dp[i-1];
+                }
+            }
+        }
+
+        return dp[nt];
+    }
+};

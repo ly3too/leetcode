@@ -45,4 +45,41 @@ private:
     }
 };
 
-/* DF solution */
+/* DP solution
+    dp[i][j] means s1[0:i-1] and s2[0:j-1] matches s3[0:i+j-1];
+*/
+/* O(m*n), O(min(m,n)) */
+class Solution {
+public:
+    bool isInterleave(string s1, string s2, string s3) {
+        if (s2.size() > s1.size())
+            return isInterleave_dp(s2, s1, s3);
+        else
+            return isInterleave_dp(s1, s2, s3);
+    }
+
+private:
+    bool isInterleave_dp(string& s1, string& s2, string& s3) {
+        auto n1 = s1.size();
+        auto n2 = s2.size();
+        auto n3 = s3.size();
+        if (n1 + n2 != n3)
+            return false;
+        if (n3 == 0)
+            return true;
+
+        vector<bool> dp(n2 + 1);
+        dp[0] = true; // empty matchs empty
+        for (int j=1; j <= n2; ++j) {
+            dp[j] = dp[j-1] && s2[j-1] == s3[j-1];
+        }
+        for (int i=1; i <= n1; ++i) {
+            dp[0] = dp[0] && s1[i-1] == s3[i-1];
+            for (int j=1; j <= n2; ++j) {
+                dp[j] = dp[j] && s1[i-1] == s3[i+j-1] || dp[j-1] && s2[j-1] == s3[i+j-1];
+            }
+        }
+
+        return dp[n2];
+    }
+};

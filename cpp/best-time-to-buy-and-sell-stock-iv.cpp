@@ -69,3 +69,47 @@ private:
         return ret;
     }
 };
+
+/* O(n + klog(n)), O(n) */
+class Solution {
+public:
+    int maxProfit(int k, vector<int>& prices) {
+        auto n = prices.size();
+        if (k <= 0 || n == 0)
+            return 0;
+
+        auto v = 0;
+        auto p = 0;
+        priority_queue<int> profs;
+        stack<vector<int>> vp_pairs;
+        while (p < n-1) {
+            // find next valley and peak
+            for (v = p; v < n-1 && prices[v] >= prices[v+1]; ++v);
+            for (p = v; p < n-1 && prices[p] <= prices[p+1]; ++p);
+            while (!vp_pairs.empty() && prices[v] < prices[vp_pairs.top()[0]]) {
+                profs.emplace(prices[vp_pairs.top()[1]] - prices[vp_pairs.top()[0]]);
+                vp_pairs.pop();
+            }
+
+            while (!vp_pairs.empty() && prices[p] > prices[vp_pairs.top()[1]]) {
+                profs.emplace(prices[vp_pairs.top()[1]] - prices[v]);
+                v = vp_pairs.top()[0];
+                vp_pairs.pop();
+            }
+            vp_pairs.emplace(vector<int>{v,p});
+        }
+
+        while (!vp_pairs.empty()) {
+            profs.emplace(prices[vp_pairs.top()[1]] - prices[vp_pairs.top()[0]]);
+            vp_pairs.pop();
+        }
+
+        auto prof = 0;
+        while (!profs.empty() && k--) {
+            prof += profs.top();
+            profs.pop();
+        }
+
+        return prof;
+    }
+};
